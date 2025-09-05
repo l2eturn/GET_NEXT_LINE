@@ -2,3 +2,4 @@ main.c
 .vi*
 *.txt
 *.o
+*.out
