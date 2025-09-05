@@ -14,7 +14,26 @@
 
 char	*ft_strjoin(char *s1, char *s2)
 {
+	char		*res;
+	size_t		i;
+	size_t		j;
+	size_t		totlen;
 
+	totlen = ft_strlen(s1) + ft_strlen(s2);
+	res = ft_calloc(sizeof(char), (totlen + 1));
+	if (!res)
+		return (NULL);
+	i = 0;
+	while (s1 && s1[i])
+	{
+		res[i] = s1[i];
+		i ++;
+	}
+	j = 0;
+	while (s2 && s2[j])
+		res[i++] = s2[j++];
+	free(s1);
+	return (res);
 }
 
 int	ft_strchr(char *s, char c)
