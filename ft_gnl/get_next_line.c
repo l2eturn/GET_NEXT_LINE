@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-char	*get_store(int fd,char *store)
+char	*get_store(int fd, char *store)
 {
 	int		byte_count;
 	char	*buff;
@@ -20,14 +20,89 @@ char	*get_store(int fd,char *store)
 	buff = ft_calloc(sizeof(char), (BUFFER_SIZE + 1));
 	if (!buff)
 		return (NULL);
-	
+	byte_count = 1;
+	while (!(ft_strchr(store, '\n')) && byte_count != 0)
+	{
+		byte_count = read(fd, buff, BUFFER_SIZE);
+		if (byte_count < 0)
+		{
+			free(buff);
+			free(store);
+			return (NULL);
+		}
+		buff[byte_count] = 0;
+		store = ft_strjoin(store, buff);
+	}
+	free(buff);
+	return (store);
 }
+
+char	*get_line(char *store)
+{
+	char	*line;
+	int		i;
+
+	i = 0;
+	while (*store && store[i] != '\n')
+		i ++;
+	line = ft_calloc(sizeof(char), (i + 2));
+	if (!line)
+		return (NULL);
+	i = 0;
+	while (store[i] && store[i] != '\n')
+	{
+		line[i] = store[i];
+		i ++;
+	}
+	if (store[i] == '\n')
+	{
+		line[i] = store[i];
+		i ++;
+	}
+	line[i] = '\0';
+	return (line);
+}
+
+char	*update_store(char *store)
+{
+	int		i;
+	int		upd_index;
+	char	*upd_store;
+
+	i = 0;
+	while (store[i] && store[i] != '\n')
+		i ++;
+	if (!store[i])
+	{
+		free(store);
+		return (NULL);
+	}
+	upd_store = malloc(sizeof(char) * (ft_strlen(store) - i + 1));
+	if (!upd_store)
+	{
+		free(upd_store);
+		return (NULL);
+	}
+	i ++;
+	upd_index = 0;
+	while (store[i])
+		upd_store[upd_index++] = store[i++];
+	upd_store[upd_index] = '\0';
+	free(store);
+	return (upd_store);
+}
+
 char	*get_next_line(int fd)
 {
 	char		*line;
 	static char	*store;
+
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	//we need to store each charactor to store till we get '\n' by each BUFFER_SIZE 
 	store = get_store(fd, store);
+	if (!store)
+		return (NULL);
+	line = get_line(store);
+	store = update_store(store);
+	return (line);
 }
