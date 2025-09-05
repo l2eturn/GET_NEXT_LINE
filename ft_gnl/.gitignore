@@ -1,0 +1,4 @@
+main.c
+.vi*
+*.txt
+*.o
