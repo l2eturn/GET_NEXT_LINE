@@ -20,6 +20,9 @@
 #  define BUFFER_SIZE 42
 # endif
 //------------------------------------------------
-
+char	*get_next_line(int fd);
+void	*ft_calloc(size_t nmemb, size_t size);
+size_t	ft_strlen(char *s);
+int		ft_strchr(char *s, char c);
 //------------------------------------------------
 #endif
