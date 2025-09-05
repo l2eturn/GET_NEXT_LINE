@@ -58,7 +58,7 @@ size_t	ft_strlen(char *s)
 	len = 0;
 	while (s && s[len])
 		len ++;
-	returen (len);
+	return (len);
 }
 
 void	*ft_calloc(size_t nmemb, size_t size)
