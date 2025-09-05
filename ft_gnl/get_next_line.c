@@ -37,7 +37,7 @@ char	*get_store(int fd, char *store)
 	return (store);
 }
 
-char	*get_line(char *store)
+char	*get_aline(char *store)
 {
 	char	*line;
 	int		i;
@@ -104,7 +104,7 @@ char	*get_next_line(int fd)
 	store = get_store(fd, store);
 	if (!store)
 		return (NULL);
-	line = get_line(store);
+	line = get_aline(store);
 	store = update_store(store);
 	return (line);
 }

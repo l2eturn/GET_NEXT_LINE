@@ -22,7 +22,7 @@
 //------------------------------------------------
 char	*get_next_line(int fd);
 char	*get_store(int fd, char *store);
-char	*get_line(char *store);
+char	*get_aline(char *store);
 //------------------------------------------------
 void	*ft_calloc(size_t nmemb, size_t size);
 size_t	ft_strlen(char *s);
