@@ -3,4 +3,4 @@ main.c
 *.txt
 *.o
 *.out
-*.gch
+*.h.gch
